@@ -1,0 +1,124 @@
+<div [formGroup]="form">
+
+  <div [ngSwitch]="question.controlType">
+
+    <md-input *ngSwitchCase="'text'" [formControlName]="question.key"
+            [id]="question.key" [type]="question.type" [placeholder]="question.label"></md-input>
+
+    <select [id]="question.key" *ngSwitchCase="'dropdown'" [formControlName]="question.key">
+      <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
+    </select>
+      
+    <md-radio-group 
+      [id]="question.key" 
+      [formControlName]="question.key" 
+      *ngSwitchCase="'radio'" 
+      class="row start-xs required" required>
+
+      <h3 class="radio-group-label">{{ question.label }}</h3>
+      
+      <span *ngFor="let opt of question.options" class="col-xs-12"><md-radio-button [value]="opt.key" class="box">{{ opt.value }}</md-radio-button><br></span>
+    
+    </md-radio-group>
+
+    <div *ngSwitchCase="'date'" class="row between-xs middle-xs" [formGroupName]="question.key">
+
+      <div class="col-xs-12">
+        <h3 class="text-center date-label">{{ question.label }}</h3>
+      </div>
+      
+      <div class="col-xs-3">
+
+        <md-input 
+        formControlName="month"
+        type="text" 
+        maxlength="2"
+        placeholder="MM"></md-input>
+
+      </div>
+
+      <div class="col-xs-1">/</div>
+
+      <div class="col-xs-3">
+
+        <md-input 
+        formControlName="day"
+        type="text" 
+        maxlength="2"
+        placeholder="DD"></md-input>
+
+      </div>
+
+      <div class="col-xs-1">/</div>
+
+      <div class="col-xs-3">
+
+        <md-input 
+        formControlName="year"
+        type="text" 
+        maxlength="4"
+        placeholder="YYYY"></md-input>
+
+      </div>
+
+    </div>
+
+    <div *ngSwitchCase="'address'" class="row between-xs middle-xs" [formGroupName]="question.key">
+
+      <div class="col-xs-12">
+        <h3 class="text-center address-label">{{ question.label }}</h3>
+      </div>
+
+      
+      <div class="col-xs-12">
+
+        <md-input 
+        formControlName="line1"
+        type="text"
+        placeholder="Address Line 1"></md-input>
+
+      </div>
+
+      <div class="col-xs-12">
+
+        <md-input 
+        formControlName="line2"
+        type="text"
+        placeholder="Address Line 2"></md-input>
+
+      </div>
+
+      <div class="col-xs-6">
+
+        <md-input 
+        formControlName="city"
+        type="text"
+        placeholder="City"></md-input>
+
+      </div>
+
+      <div class="col-xs-6">
+
+        <md-input 
+        formControlName="state"
+        type="text"
+        placeholder="State"></md-input>
+
+      </div>
+
+      <div class="col-xs-12">
+
+        <md-input 
+        formControlName="zip"
+        type="text"
+        maxlength="5"
+        placeholder="Zipcode"></md-input>
+
+      </div>
+
+    </div>
+
+  </div> 
+
+  <div class="errorMessage" *ngIf="!isValid && isDirty">{{ question.errorLabel }} is required</div>
+</div>

@@ -1,0 +1,38 @@
+<md-sidenav-layout>
+
+    <md-sidenav #sidenav [opened]="sidenavOpen" (open)="open()" (close)="closed()">
+
+      <div class="row center-xs">
+        <div class="col-xs-12">
+
+          <div class="box sidenav-item-box">
+            <button md-mini-fab class="md-24 md-primary close-sidenav-btn" 
+              (click)="close(sidenav)">
+              <md-icon>keyboard_arrow_left</md-icon>
+            </button>
+          </div>
+
+        </div>
+        <div class="col-xs-12" *ngFor="let navLocation of navLocations">
+
+          <div class="box sidenav-item-box">
+            
+            <!-- temp -->
+            <div class="sidenav-item"
+              routerLinkActive="selected"
+              [routerLink]="navLocation.route">
+              
+              {{ navLocation.title }}
+              
+            </div>
+          
+          </div>
+
+        </div>
+      </div>
+      
+    </md-sidenav>
+
+    <ng-content></ng-content>
+  
+</md-sidenav-layout>

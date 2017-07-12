@@ -1,0 +1,40 @@
+<div class="row center-xs">
+  <div class="col-xs-11">
+    <div class="box">
+
+      <h1 class="title">Sign Up</h1>
+
+    </div>
+  </div>
+</div> 
+
+<div class="row center-xs">
+   <div class="col-xs-11 col-sm-7 col-md-6 col-lg-4">
+      <div class="box">
+
+         <md-card class="main-card">
+          
+          <md-card-content>
+
+            <div class="row center-xs">
+              <div class="col-xs-11">
+                <div class="box">
+
+                  <app-dynamic-form 
+                    [questions]="questions"
+                    [response]="response"
+                    [responseReceived]="responseReceived"
+                    [waiting]="waiting"
+                    (submitted)="onSubmit($event)"></app-dynamic-form>
+
+                </div>
+              </div>
+            </div>
+
+          </md-card-content>
+
+        </md-card>
+
+      </div>
+   </div>
+</div>

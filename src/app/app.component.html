@@ -1,0 +1,7 @@
+<app-sidenav #sidenav [navLocations]="navLocations">
+  
+  <app-toolbar (openSidenav)="sidenav.open()"></app-toolbar>
+
+  <router-outlet></router-outlet>
+
+</app-sidenav>
