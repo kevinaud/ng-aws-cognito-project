@@ -3,25 +3,28 @@ import { Injectable, Inject, Optional } from "@angular/core";
 import { COGNITO_CONFIG } from "./cognito-config-token";
 import { AwsCognitoConfig } from "./aws-cognito-config";
 
+import * as sdk from "aws-sdk";
+import * as AWSCognito from "amazon-cognito-identity-js";
+
 @Injectable()
 export class AwsService {
 
     authenticated: boolean = false;
     cognitoConfig: AwsCognitoConfig;
 
-    sdk = require("aws-sdk");
-    AWSCognito = require("amazon-cognito-identity-js");
-    CognitoUserPool = this.AWSCognito.CognitoUserPool;
+    //sdk = require("aws-sdk");
+    //AWSCognito = require("amazon-cognito-identity-js");
+    CognitoUserPool = AWSCognito.CognitoUserPool;
 
     constructor(@Inject(COGNITO_CONFIG) awsCognitoConfig: AwsCognitoConfig) {
 
         this.cognitoConfig = awsCognitoConfig;
 
         // Your sdk region
-        this.sdk.config.region = this.cognitoConfig.region; //
+        sdk.config.region = this.cognitoConfig.region; //
 
         // Need to provide placeholder keys unless unauthorised user access is enabled for user pool
-        this.sdk.config.update({ accessKeyId: "anything", secretAccessKey: "anything" });
+        sdk.config.update({ accessKeyId: "anything", secretAccessKey: "anything" });
 
         let tokenString = JSON.parse(localStorage.getItem("token"));
 
@@ -110,7 +113,7 @@ export class AwsService {
             Password : password,
         };
 
-        return new this.AWSCognito.AuthenticationDetails(authenticationData);
+        return new AWSCognito.AuthenticationDetails(authenticationData);
     }
 
     makeCognitoUserPoolObject() {
@@ -120,7 +123,7 @@ export class AwsService {
             ClientId : this.cognitoConfig.clientId
         };
 
-        return new this.AWSCognito.CognitoUserPool(poolData);
+        return new AWSCognito.CognitoUserPool(poolData);
     }
 
     makeCognitoUserObject(username, userPool) {
@@ -130,7 +133,7 @@ export class AwsService {
             Pool : userPool
         };
 
-        return new this.AWSCognito.CognitoUser(userData);
+        return new AWSCognito.CognitoUser(userData);
     }
 
     setToken(token) {
@@ -143,7 +146,7 @@ export class AwsService {
         let loginObject = {};
         loginObject[loginType] = token;
 
-        this.sdk.config.credentials = new this.sdk.CognitoIdentityCredentials({
+        sdk.config.credentials = new sdk.CognitoIdentityCredentials({
             // This will be the identity pool from your federated identity pool and not your user pool id.
             IdentityPoolId: this.cognitoConfig.identityPoolId,
             Logins: loginObject

@@ -1,6 +1,6 @@
 export interface AwsCognitoConfig {
-  region: String;
-  identityPoolId: String;
-  userPoolId: String;
-  clientId: String;
+  region: string;
+  identityPoolId: string;
+  userPoolId: string;
+  clientId: string;
 }
