@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
-import { UserService } from 'ng2-aws-cognito';
+import { UserService } from 'ng-aws-cognito';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserModule } from '@angular/platform-browser';
@@ -32,7 +32,7 @@ describe('ToolbarComponent', () => {
       imports: [
         BrowserModule,
         RouterTestingModule.withRoutes([{ path: 'fakeRouteForTesting', redirectTo: 'fakeRouteForTesting', pathMatch: 'full' }]),
-        MaterialModule.forRoot()
+        MaterialModule
       ],
 	  providers: [
         { provide: UserService, useValue: UserServiceStub }

@@ -1,14 +1,14 @@
 import { Injectable } from "@angular/core";
-/*import { Observable } from "rxjs";
+import { Observable } from "rxjs";
 
 // import { BlogPost } from "../blog/blog-post";
 import { AwsService } from "./aws.service";
 import { ApiClientService } from "./api-client.service";
-import { Match } from "./match.service";*/
+import { Match } from "./match.service";
 
 @Injectable()
 export class ApiGatewayService {
-/*
+
   client = null;
   authenticating;
 
@@ -54,7 +54,7 @@ export class ApiGatewayService {
         ref.endpoints[endpoint][method.toLowerCase()] = ref.makeFunction(endpoint,method);
       }
       else{
-        console.error("ERROR: " + func + " is not a valid method");
+        //console.error("ERROR: " + func + " is not a valid method");
       }
     });
 
@@ -63,22 +63,20 @@ export class ApiGatewayService {
 
   private makeFunction(endpoint: string, request: string){
     return function() {}
-    switch(request){
+    /*switch(request){
       case "Post":
         return function(params, body, addParams){
                
         }
-        break;
 
       case "Get":
         return function(params, addParams){
 
         }
-        break;
 
       default:
         console.error("Error: " + request + " is not a valid request");
         break;
-    } 
-  }*/
+    }*/
+  }
 }

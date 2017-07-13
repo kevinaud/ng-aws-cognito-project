@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
-import { UserService } from 'ng2-aws-cognito';
+import { UserService } from 'ng-aws-cognito';
 
 import { ProfileComponent } from './profile.component';
 

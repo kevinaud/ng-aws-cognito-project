@@ -19,9 +19,9 @@ export class UserService {
 
     let token = this.storage.getItem("token");
     if (token) {
-      console.log("token found");
+//      console.log("token found");
     } else {
-      console.log("no token found");
+ //     console.log("no token found");
     }
     
   }
