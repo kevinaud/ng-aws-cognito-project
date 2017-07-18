@@ -15,39 +15,39 @@ import { ToolbarComponent } from './toolbar.component';
 
 class UserServiceStub {
 
-  $auth: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+    $auth: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
 }
 
 class AwsServiceStub { }
 
 describe('ToolbarComponent', () => {
-  let component: ToolbarComponent;
-  let fixture: ComponentFixture<ToolbarComponent>;
+    let component: ToolbarComponent;
+    let fixture: ComponentFixture<ToolbarComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ToolbarComponent ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-      imports: [
-        BrowserModule,
-        RouterTestingModule.withRoutes([{ path: 'fakeRouteForTesting', redirectTo: 'fakeRouteForTesting', pathMatch: 'full' }]),
-        MaterialModule
-      ],
-	  providers: [
-        { provide: UserService, useValue: UserServiceStub }
-	  ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [ ToolbarComponent ],
+            schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+            imports: [
+                BrowserModule,
+                RouterTestingModule.withRoutes([{ path: 'fakeRouteForTesting', redirectTo: 'fakeRouteForTesting', pathMatch: 'full' }]),
+                MaterialModule
+            ],
+            providers: [
+                { provide: UserService, useValue: UserServiceStub }
+            ]
+        })
+        .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ToolbarComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ToolbarComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

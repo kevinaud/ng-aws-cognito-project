@@ -45,13 +45,13 @@ import { AwsService } from "./aws.service";
 import { COGNITO_CONFIG } from "./cognito-config-token";
 import { ApigClientFactory } from "./apig-client-factory";
 import { UserService } from './user.service';
-import { LocalStorageService } from './local-storage.service';*/
+import { LocalStorageService } from './local-storage.service';
 
-//@NgModule({
-//
-//})
-//export class Ng2AwsCognitoModule { }
-/*@NgModule({
+@NgModule({
+
+})
+export class Ng2AwsCognitoModule { }
+@NgModule({
     providers: [
         ApiClientService,
         ApiGatewayService,
@@ -60,19 +60,19 @@ import { LocalStorageService } from './local-storage.service';*/
 })
 export class Ng2AwsCognitoModule { }
 
-    static forRoot(config): ModuleWithProviders {
-        return {
-            ngModule: Ng2AwsCognitoModule,
-            providers: [
-                UserService,
-                LocalStorageService,
-                { provide: COGNITO_CONFIG, useValue: config },
-//                { provide: ApigClientFactory, useValue: apigClientFactory }
-            ]
-        };
-    }
+static forRoot(config): ModuleWithProviders {
+    return {
+        ngModule: Ng2AwsCognitoModule,
+        providers: [
+            UserService,
+            LocalStorageService,
+            { provide: COGNITO_CONFIG, useValue: config },
+            { provide: ApigClientFactory, useValue: apigClientFactory }
+        ]
+    };
+}
 
-}*/
+}
 
-//export { AwsCognitoConfig, ApigClientFactory };
-
+export { AwsCognitoConfig, ApigClientFactory };
+*/

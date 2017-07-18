@@ -1,24 +1,24 @@
 .menu-icon {
-  padding-right: 16px;
+    padding-right: 16px;
 }
 
 .menu-icon:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 md-toolbar {
-  color: white;
+    color: white;
 }
 
 .title {
-  color: white !important;
-  text-decoration: none;
+    color: white !important;
+    text-decoration: none;
 }
 
 .title, .menu-icon {
-  font-size: 22px;
+    font-size: 22px;
 }
 
 .logout-btn {
-  margin-left: 16px;
+    margin-left: 16px;
 }

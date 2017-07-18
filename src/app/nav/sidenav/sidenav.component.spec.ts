@@ -10,34 +10,34 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SidenavComponent } from './sidenav.component';
 
 class RouterStub {
-  navigateByUrl(url: string) { return url; }
+    navigateByUrl(url: string) { return url; }
 }
 
 describe('SidenavComponent', () => {
-  let component: SidenavComponent;
-  let fixture: ComponentFixture<SidenavComponent>;
+    let component: SidenavComponent;
+    let fixture: ComponentFixture<SidenavComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ SidenavComponent ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-      imports: [
-        RouterTestingModule.withRoutes([{ path: 'fakeRouteForTesting', redirectTo: 'fakeRouteForTesting', pathMatch: 'full' }])
-      ],
-      providers: [
-        { provide: Router, useClass: RouterStub }
-      ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [ SidenavComponent ],
+            schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+            imports: [
+                RouterTestingModule.withRoutes([{ path: 'fakeRouteForTesting', redirectTo: 'fakeRouteForTesting', pathMatch: 'full' }])
+            ],
+            providers: [
+                { provide: Router, useClass: RouterStub }
+            ]
+        })
+        .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SidenavComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(SidenavComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

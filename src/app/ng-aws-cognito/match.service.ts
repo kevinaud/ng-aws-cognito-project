@@ -12,7 +12,7 @@ export class Match{
             return match[0];
         else
             return "";
-        
+
     }
 
     public removeRequestMethod(funcName: string){
@@ -34,7 +34,7 @@ export class Match{
             return funcName.split(/(?=[A-Z])/).map((s) => {
                 return s.toLowerCase();
             });
-       else
-           return null;
+            else
+                return null;
     }
 }

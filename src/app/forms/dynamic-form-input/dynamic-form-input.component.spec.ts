@@ -9,38 +9,38 @@ import { TextboxQuestion } from '../question-text';
 import { DynamicFormInputComponent } from './dynamic-form-input.component';
 
 describe('DynamicFormInputComponent', () => {
-  let component: DynamicFormInputComponent;
-  let fixture: ComponentFixture<DynamicFormInputComponent>;
+    let component: DynamicFormInputComponent;
+    let fixture: ComponentFixture<DynamicFormInputComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ DynamicFormInputComponent ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-      imports: [
-        ReactiveFormsModule,
-        FormsModule
-      ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [ DynamicFormInputComponent ],
+            schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+            imports: [
+                ReactiveFormsModule,
+                FormsModule
+            ]
+        })
+        .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DynamicFormInputComponent);
-    component = fixture.componentInstance;
+    beforeEach(() => {
+        fixture = TestBed.createComponent(DynamicFormInputComponent);
+        component = fixture.componentInstance;
 
-    component.form = new FormGroup({
-      firstName: new FormControl()
+        component.form = new FormGroup({
+            firstName: new FormControl()
+        });
+
+        component.question = new TextboxQuestion({
+            key: 'firstName',
+            label: 'First name',
+            required: true,
+            type: 'text',
+            order: 2
+        });
+
+        fixture.detectChanges();
     });
-
-    component.question = new TextboxQuestion({
-      key: 'firstName',
-      label: 'First name',
-      required: true,
-      type: 'text',
-      order: 2
-    });
-
-    fixture.detectChanges();
-  });
 
 });

@@ -3,26 +3,26 @@ import { Observable } from 'rxjs';
 //import { UserService } from 'ng2-aws-cognito';
 
 @Component({
-  selector: 'app-toolbar',
-  templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.css']
+    selector: 'app-toolbar',
+    templateUrl: './toolbar.component.html',
+    styleUrls: ['./toolbar.component.css']
 })
 export class ToolbarComponent implements OnInit {
 
-  @Output() openSidenav: EventEmitter<any> = new EventEmitter();
-  authenticated: Observable<boolean>;
+    @Output() openSidenav: EventEmitter<any> = new EventEmitter();
+    authenticated: Observable<boolean>;
 
- // constructor(private user: UserService) { }
+    // constructor(private user: UserService) { }
 
-  ngOnInit() { }
+    ngOnInit() { }
 
-  menuIconClick() {
-    this.openSidenav.emit(null);
-  }
+    menuIconClick() {
+        this.openSidenav.emit(null);
+    }
 
-  logout() {
-  	console.log('logout');
-    //this.userService.logout();
-  }
+    logout() {
+        console.log('logout');
+        //this.userService.logout();
+    }
 
 }

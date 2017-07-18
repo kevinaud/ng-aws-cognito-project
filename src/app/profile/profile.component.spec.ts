@@ -10,31 +10,31 @@ import { ProfileComponent } from './profile.component';
 
 class UserServiceStub {
 
-  $auth: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+    $auth: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
 }
 
 describe('ProfileComponent', () => {
-  let component: ProfileComponent;
-  let fixture: ComponentFixture<ProfileComponent>;
+    let component: ProfileComponent;
+    let fixture: ComponentFixture<ProfileComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ProfileComponent ],
-      providers:[
-        { provide: UserService, useValue: UserServiceStub }
-      ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [ ProfileComponent ],
+            providers:[
+                { provide: UserService, useValue: UserServiceStub }
+            ]
+        })
+        .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ProfileComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ProfileComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });
