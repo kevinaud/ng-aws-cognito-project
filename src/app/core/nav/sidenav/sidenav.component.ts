@@ -10,7 +10,7 @@ import { NavLocation } from './nav-location';
 })
 export class SidenavComponent implements OnInit {
 
-    sidenavOpen: boolean;
+    sidenavOpen: boolean = false;
 
     @Input() navLocations: NavLocation[] = [];
 
@@ -21,7 +21,6 @@ export class SidenavComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.sidenavOpen = false;
     }
 
     toggle() {
@@ -30,10 +29,6 @@ export class SidenavComponent implements OnInit {
 
     open() {
         this.sidenavOpen = true;
-    }
-
-    close(sidenav) {
-        sidenav.close();
     }
 
     closed(event) {

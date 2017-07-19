@@ -1,10 +1,6 @@
-import { ModuleWithProviders }  from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { ModuleWithProviders } from '@angular/core';
+import {Routes, RouterModule, NoPreloading} from '@angular/router';
 
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { ProfileComponent } from './profile/profile.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
 
 const appRoutes: Routes = [
     {
@@ -14,19 +10,19 @@ const appRoutes: Routes = [
     },
     {
         path: 'home',
-        component: HomeComponent
+        loadChildren: './home/home.module#HomeModule'
     },
     {
         path: 'login',
-        component: LoginComponent
+        loadChildren: './login/login.module#LoginModule'
     },
     {
         path: 'profile',
-        component: ProfileComponent
+        loadChildren: './profile/profile.module#ProfileModule'
     },
     {
         path: 'sign-up',
-        component: SignUpComponent
+        loadChildren: './sign-up/sign-up.module#SignUpModule'
     }
 ];
 
@@ -49,4 +45,4 @@ export const appNavLocations = [
     }
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
+export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes, {useHash: true, preloadingStrategy: NoPreloading});

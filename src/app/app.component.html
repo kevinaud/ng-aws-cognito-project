@@ -1,7 +1,59 @@
-<app-sidenav #sidenav [navLocations]="navLocations">
+<md-toolbar color="primary">
 
-    <app-toolbar (openSidenav)="sidenav.open()"></app-toolbar>
+    <md-icon class="md-24 menu-icon" (click)="sidenav.toggle()">menu</md-icon>
+
+    <!-- Fill space between right nav and left nav -->
+    <span style="flex: 1 1 auto;"></span>
+
+    <a class="title" [routerLink]="['/home']">Ng2 Aws Cognito Example</a>
+
+    <!-- <button md-button
+        (click)="logout()"
+        class="logout-btn"
+        *ngIf="user.$auth | async">LOGOUT</button>-->
+
+    <button md-button
+            (click)="logout()"
+            class="logout-btn">LOGOUT</button>
+
+</md-toolbar>
+
+<md-sidenav-container>
+
+    <md-sidenav #sidenav [opened]="sidenavOpen"  mode="slide">
+
+        <div class="row center-xs">
+            <div class="col-xs-12">
+
+                <div class="box sidenav-item-box">
+                    <button md-mini-fab color="primary" class="md-24  close-sidenav-btn"
+                            (click)="sidenav.close()">
+                        <md-icon>keyboard_arrow_left</md-icon>
+                    </button>
+                </div>
+
+            </div>
+            <div class="col-xs-12" *ngFor="let navLocation of navLocations">
+
+                <div class="box sidenav-item-box">
+
+                    <!-- temp -->
+                    <div class="sidenav-item"
+                         routerLinkActive="selected"
+                         [routerLink]="navLocation.route">
+
+                        {{ navLocation.title }}
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </md-sidenav>
 
     <router-outlet></router-outlet>
 
-</app-sidenav>
+</md-sidenav-container>
+

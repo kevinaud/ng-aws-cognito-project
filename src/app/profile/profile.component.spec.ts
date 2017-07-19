@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { UserService } from 'ng-aws-cognito';
 
 import { ProfileComponent } from './profile.component';
@@ -21,7 +21,7 @@ describe('ProfileComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [ ProfileComponent ],
-            providers:[
+            providers: [
                 { provide: UserService, useValue: UserServiceStub }
             ]
         })

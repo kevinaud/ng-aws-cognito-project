@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { QuestionService } from '../forms/question.service';
+import { QuestionService } from '../shared/forms/question.service';
 
 @Component({
     selector: 'app-sign-up',
@@ -35,7 +35,7 @@ export class SignUpComponent implements OnInit {
           console.log(success);
           this.waiting = false;
 
-    /*this.response = { 
+    /*this.response = {
 success: true,
 message: success
 };
