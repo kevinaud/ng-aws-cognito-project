@@ -6,32 +6,32 @@ import { QuestionBase } from '../question-base';
 import { QuestionControlService } from '../question-control.service';
 
 @Component({
-  selector: 'app-dynamic-form',
-  templateUrl: 'dynamic-form.component.html',
-  styleUrls: [ './dynamic-form.component.css' ]
+    selector: 'app-dynamic-form',
+    templateUrl: 'dynamic-form.component.html',
+    styleUrls: [ './dynamic-form.component.css' ]
 })
 export class DynamicFormComponent implements OnInit {
 
-  @Input() questions: QuestionBase<any>[] = [];
-  @Input() response: FormResponse = { success: false, message: '' };
-  @Input() responseReceived: boolean = false;
-  @Input() waiting: boolean = false;
-  @Output() submitted: EventEmitter<any> = new EventEmitter();
+    @Input() questions: QuestionBase<any>[] = [];
+    @Input() response: FormResponse = { success: false, message: '' };
+    @Input() responseReceived: boolean = false;
+    @Input() waiting: boolean = false;
+    @Output() submitted: EventEmitter<any> = new EventEmitter();
 
-  form: FormGroup;
-  payLoad = '';
-  qcs: QuestionControlService;
+    form: FormGroup;
+    payLoad = '';
+    qcs: QuestionControlService;
 
-  constructor(_qcs: QuestionControlService) {
-    this.qcs = _qcs;
-  }
+    constructor(_qcs: QuestionControlService) {
+        this.qcs = _qcs;
+    }
 
-  ngOnInit() {
-    this.form = this.qcs.toFormGroup(this.questions);
-  }
+    ngOnInit() {
+        this.form = this.qcs.toFormGroup(this.questions);
+    }
 
-  onSubmit() {
-    this.submitted.emit(this.form.value);
-  }
+    onSubmit() {
+        this.submitted.emit(this.form.value);
+    }
 
 }

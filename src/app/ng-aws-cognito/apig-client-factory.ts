@@ -4,8 +4,8 @@ import { IAMCredentials } from "./iam-credentials";
 
 export class ApigClientFactory {
 
-  newClient(iamCredentials?: IAMCredentials) {
+    newClient(iamCredentials?: IAMCredentials) {
 
-  }
+    }
 
 }

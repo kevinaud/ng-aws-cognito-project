@@ -1,6 +1,4 @@
 export interface NavLocation {
-
-  title: string;
-  route: string;
-
+    title: string;
+    route: string;
 }

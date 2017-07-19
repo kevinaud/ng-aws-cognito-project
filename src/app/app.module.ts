@@ -19,34 +19,34 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { ProfileComponent } from './profile/profile.component';
 
 let awsCognitoConfig = {
-  region: 'us-east-1',
-  userPoolId: 'us-east-1_lBi2qHdsi',
-  identityPoolId: 'us-east-1:bfa1fd06-b31e-4b75-b512-3218632ea484',
-  clientId: '19gham3mddppq4psig9tnifu8t'
+    region: 'us-east-1',
+    userPoolId: 'us-east-1_lBi2qHdsi',
+    identityPoolId: 'us-east-1:bfa1fd06-b31e-4b75-b512-3218632ea484',
+    clientId: '19gham3mddppq4psig9tnifu8t'
 };
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    LoginComponent,
-    SignUpComponent,
-    ProfileComponent
-  ],
-  imports: [
-    MaterialModule,
-    BrowserModule,
-    HttpModule,
-    RouterModule,
-    routing,
-    NavModule,
-    FormsModule,
-    NgAwsCognitoModule.forRoot(awsCognitoConfig),
-  ],
-  providers: [
-    
-  ],
-  bootstrap: [ AppComponent ]
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        LoginComponent,
+        SignUpComponent,
+        ProfileComponent
+    ],
+    imports: [
+        MaterialModule,
+        BrowserModule,
+        HttpModule,
+        RouterModule,
+        routing,
+        NavModule,
+        FormsModule,
+        NgAwsCognitoModule.forRoot(awsCognitoConfig),
+    ],
+    providers: [
+
+    ],
+    bootstrap: [ AppComponent ]
 })
 export class AppModule { }
 

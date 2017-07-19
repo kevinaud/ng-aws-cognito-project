@@ -1,19 +1,19 @@
 <md-toolbar color="primary">
 
-  <md-icon class="md-24 menu-icon" (click)="menuIconClick()">menu</md-icon>
+    <md-icon class="md-24 menu-icon" (click)="menuIconClick()">menu</md-icon>
 
-  <!-- Fill space between right nav and left nav -->
-  <span style="flex: 1 1 auto;"></span>
+    <!-- Fill space between right nav and left nav -->
+    <span style="flex: 1 1 auto;"></span>
 
-  <a class="title" [routerLink]="['/home']">Ng2 Aws Cognito Example</a>
+    <a class="title" [routerLink]="['/home']">Ng2 Aws Cognito Example</a>
 
- <!-- <button md-button 
-    (click)="logout()" 
-    class="logout-btn"
-    *ngIf="user.$auth | async">LOGOUT</button>-->
+    <!-- <button md-button 
+        (click)="logout()" 
+        class="logout-btn"
+        *ngIf="user.$auth | async">LOGOUT</button>-->
 
-  <button md-button 
-    (click)="logout()" 
-    class="logout-btn">LOGOUT</button>
+    <button md-button 
+        (click)="logout()" 
+        class="logout-btn">LOGOUT</button>
 
 </md-toolbar>

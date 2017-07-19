@@ -8,23 +8,23 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 
 @NgModule({
-  declarations: [
-    ToolbarComponent,
-    SidenavComponent
-  ],
-  imports: [
-    BrowserModule,
-    RouterModule,
-    MaterialModule
-  ],
-  exports: [
-    ToolbarComponent,
-    SidenavComponent
-  ],
-  /*providers: [
-    UserService,
-    AwsService
-  ],*/
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+    declarations: [
+        ToolbarComponent,
+        SidenavComponent
+    ],
+    imports: [
+        BrowserModule,
+        RouterModule,
+        MaterialModule
+    ],
+    exports: [
+        ToolbarComponent,
+        SidenavComponent
+    ],
+    /*providers: [
+      UserService,
+      AwsService
+      ],*/
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class NavModule { }
