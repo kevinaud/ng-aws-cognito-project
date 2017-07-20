@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { routing } from './app.routing';
 import { AppComponent } from './app.component';
-import {MdButtonModule, MdIconModule, MdSidenavModule, MdToolbarModule} from "@angular/material";
+import { MdButtonModule, MdIconModule, MdSidenavModule, MdToolbarModule } from "@angular/material";
 
 
 
