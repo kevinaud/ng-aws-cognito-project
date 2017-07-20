@@ -1,8 +1,9 @@
-import {Component, Output} from '@angular/core';
+import { Component, Output } from '@angular/core';
 
 import { appNavLocations } from './app.routing';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 // import {UserService} from ''
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
