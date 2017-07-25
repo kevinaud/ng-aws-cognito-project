@@ -1,16 +1,22 @@
 /* tslint:disable:no-unused-variable */
 import { TestBed, async, inject, fakeAsync, tick } from "@angular/core/testing";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
+
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { Observable } from 'rxjs/Observable';
 
 import { ApiClientService } from "../services/api-client.service";
-import { ApigClientFactory } from "../apig-client-factory";
+import { ApigClientFactory } from "../factories/apig-client-factory";
 import { AwsService } from "../services/aws.service";
 import { UserService } from "../services/user.service";
-import { LocalStorageService } from "../services/local-storage.service";
 
-class AwsServiceStub {
+import { 
+    LocalStorageService,
+    LocalStorageServiceStub
+} from "../services/local-storage.service";
 
+const AwsServiceStub = {
+    getCurrentUserValidity(success, error) {}
 }
 
 const unauthenticatedClient = {
@@ -61,9 +67,8 @@ describe("Service: ApiClientService", () => {
                 ApiClientService,
                 { provide: AwsService, useValue: AwsServiceStub },
                 { provide: ApigClientFactory, useValue: apigClientFactoryStub},
-                // { provide: UserService, useValue: UserServiceStub },
-                UserService,
-                LocalStorageService
+                { provide: LocalStorageService, useValue: LocalStorageServiceStub },
+                UserService
             ]
         });
 

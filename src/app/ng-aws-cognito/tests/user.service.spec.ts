@@ -5,51 +5,10 @@ import { TestBed, async, inject } from "@angular/core/testing";
 import { UserService } from "../services/user.service";
 import { AwsService } from "../services/aws.service";
 import { ApiClientService } from "../services/api-client.service";
-import { LocalStorageService } from "../services/local-storage.service";
-
-const LocalStorageServiceStub  = {
-
-    storage: {},
-
-    getItem: function(key) {
-        return this.storage[key];
-    },
-
-    setItem: function(key, value) {
-        this.storage[key] = value;
-    },
-
-    removeItem: function(key) {
-        delete this.storage[key];
-    },
-
-    clear: function() {
-        this.storage = {};
-    }
-
-};
-
-const ExpiredLocalStorageServiceStub  = {
-
-    storage: {},
-
-    getItem: function(key) {
-        return "test";
-    },
-
-    setItem: function(key, value) {
-        this.storage[key] = value;
-    },
-
-    removeItem: function(key) {
-        delete this.storage[key];
-    },
-
-    clear: function() {
-        this.storage = {};
-    }
-
-};
+import { 
+    LocalStorageService,
+    LocalStorageServiceStub
+} from "../services/local-storage.service";
 
 const AwsServiceStub = {
     cognitoLogin(username, password, cb){
@@ -58,6 +17,10 @@ const AwsServiceStub = {
         } else {
             return cb ("not logged in");
         }
+    },
+
+    getCurrentUserValidity(success, error) {
+    
     }
 }
 
@@ -86,7 +49,7 @@ describe("Service: UserService", () => {
 
     }));
 
-    it("auth status should be initialized to false", inject([ UserService ], (service: UserService) => {
+    it("should have an auth status that is initialized to false", inject([ UserService ], (service: UserService) => {
 
         service.ngOnInit();
         service.$auth.subscribe((auth) => {
@@ -121,70 +84,85 @@ describe("Service: UserService", () => {
 
     }));
 
-    it("should not try to initialize auth status if no stored token is found",
-       inject([ UserService ], (service: UserService) => {
+    it("should have a user object that is not null if the login is successful", inject([ UserService ], (service: UserService) => {
+        service.ngOnInit();
+        service.login("correctUsername", "correctPassword").subscribe(
+            (success) => {
+                expect(service.getUser()).not.toBe(null);  
+            }
+        );
 
-           let storage = TestBed.get(LocalStorageService);
-           expect(storage.getItem("token")).toBeUndefined();
+    }));
 
-           //spyOn(services, "initializeFromToken");
-           //expect(services.initializeFromToken).toHaveBeenCalled()*/
+    /*it("should have a user object that is null if the login is fails", inject([ UserService ], (service: UserService) => {
+        service.ngOnInit();
+        service.login("incorrectUsername", "incorrectPassword").subscribe(
+            (success) => { },
+            (error) => {
+                expect(service.getUser()).toBe(null);  
+            }
+        );
 
-/*TestBed.configureTestingModule({
-providers: [
-UserService,
-{ provide: AwsService, useValue: AwsServiceStub },
-{ provide: ApiClientService, useValue: ApiClientServiceStub },
-{ provide: LocalStorageService, useValue: NewLocalStorageServiceStub }
-]
-});
+    }));*/
 
-TestBed.resetTestEnvironment();
+    it("should check if there is already a stored user upon app initialization", 
+        inject([ UserService ], (service: UserService) => {
+            let aws = TestBed.get(AwsService);
 
-storage = TestBed.get(LocalStorageService);
-expect(storage.getItem("token")).toBeDefined();*/
+            spyOn(aws, "getCurrentUserValidity");
 
-        }));
+            service.ngOnInit();
 
-});
+            expect(aws.getCurrentUserValidity).toHaveBeenCalled();
+       })
+    );
 
-describe("Initialization of Service: UserService", () => {
+    it("should set auth status to true if there is a valid stored user upon app initialization", 
+        inject([ UserService ], (service: UserService) => {
+            let aws = TestBed.get(AwsService);
 
-        /*const NewLocalStorageServiceStub = {
-getItem: function(key) {
-if (key === "token") {
-return "someToken";
-}
-}
-}*/
-
-        beforeEach(() => {
-            TestBed.configureTestingModule({
-providers: [
-UserService,
-{ provide: AwsService, useValue: AwsServiceStub },
-{ provide: ApiClientService, useValue: ApiClientServiceStub },
-{ provide: LocalStorageService, useValue: LocalStorageServiceStub }
-]
-});
-
-            let storage = TestBed.get(LocalStorageService);
-            storage.setItem("token", "test");
+            spyOn(aws, "getCurrentUserValidity").and.callFake((success, error) => {
+                return success(true);
             });
 
-it("should try to initialize auth status if a token is stored already",
+            service.ngOnInit();
+
+            service.$auth.subscribe((authStatus) => {
+                expect(authStatus).toEqual(true);
+            });
+       })
+    );
+
+    it("should set auth status to false if there is an invalid stored user upon app initialization", 
         inject([ UserService ], (service: UserService) => {
+            let aws = TestBed.get(AwsService);
 
-//expect(services.flag).toBeFalsy();
+            spyOn(aws, "getCurrentUserValidity").and.callFake((success, error) => {
+                return success(false);
+            });
 
-let storage = TestBed.get(LocalStorageService);
-storage.setItem("token", "test");
-//expect(storage.getItem('test')).toEqual("test");
+            service.ngOnInit();
 
-//spyOn(services, "initializeFromToken");
-//expect(services.initializeFromToken).toHaveBeenCalled()
+            service.$auth.subscribe((authStatus) => {
+                expect(authStatus).toEqual(false);
+            });
+       })
+    );
 
-       }));
+    it("should set auth status to false if there is an error while validating a stored user during app initialization", 
+        inject([ UserService ], (service: UserService) => {
+            let aws = TestBed.get(AwsService);
 
+            spyOn(aws, "getCurrentUserValidity").and.callFake((success, error) => {
+                return error();
+            });
+
+            service.ngOnInit();
+
+            service.$auth.subscribe((authStatus) => {
+                expect(authStatus).toEqual(false);
+            });
+       })
+    );
 });
 

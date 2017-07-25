@@ -2,7 +2,7 @@
 
 import { TestBed, async, inject } from "@angular/core/testing";
 
-import { AwsService } from "../aws.service";
+import { AwsService } from "../services/aws.service";
 import { COGNITO_CONFIG } from "../cognito-config-token";
 
 const AwsCognitoConfigStub = {
