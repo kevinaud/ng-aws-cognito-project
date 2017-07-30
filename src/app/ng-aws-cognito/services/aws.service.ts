@@ -12,8 +12,6 @@ export class AwsService {
     authenticated: boolean = false;
     cognitoConfig: AwsCognitoConfig;
 
-    //sdk = require("aws-sdk");
-    //AWSCognito = require("amazon-cognito-identity-js");
     CognitoUserPool = AWSCognito.CognitoUserPool;
 
     constructor(@Inject(COGNITO_CONFIG) awsCognitoConfig: AwsCognitoConfig) {
@@ -160,4 +158,23 @@ export class AwsService {
         return JSON.parse(window.atob(base64));
     };
 
+    public getCurrentUserValidity(success, error) {
+        let userPool = this.makeCognitoUserPoolObject();
+        let cognitoUser = userPool.getCurrentUser();
+
+        if (cognitoUser != null) {
+            cognitoUser.getSession(function(err, session) {
+                if (err) {
+                    console.log(err);
+                    return error(err)
+                }
+
+                return success(session.isValid());
+            });
+        }  
+    }
+
+    getUserAttributes(success, error) {
+
+    }
 }

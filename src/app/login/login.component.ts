@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'ng-aws-cognito';
 
 import { QuestionService } from '../shared/forms/question.service';
 
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
         message: ''
     };
 
-    constructor(private service: QuestionService /*, private userService: UserService*/) {
+    constructor(private service: QuestionService, private userService: UserService) {
         this.questions = service.getLoginQuestions();
     }
 
@@ -27,9 +28,12 @@ export class LoginComponent implements OnInit {
 
     onSubmit(event) {
 
-        /*this.waiting = true;
+        console.log("login");
+        console.log(event);
 
-        this.userService.login(event.username, event.password).then(
+        this.waiting = true;
+
+        this.userService.login(event.username, event.password).subscribe(
             (success) => {
 
                 console.log(success);
@@ -46,11 +50,13 @@ export class LoginComponent implements OnInit {
             (error) => {
                 this.waiting = false;
                 console.log(error);
-            });
-            this.responseReceived = false;
-            this.waiting = true;
+            }
+        );
+        
+        this.responseReceived = false;
+        this.waiting = true;
 
-            this.mailchimp.subscribeToRecruitment(event).subscribe((response) => {
+        /*this.mailchimp.subscribeToRecruitment(event).subscribe((response) => {
 
                 this.waiting = false;
                 this.response = response.json();

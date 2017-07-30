@@ -4,7 +4,6 @@ import { Observable } from "rxjs";
 // import { BlogPost } from "../blog/blog-post";
 import { AwsService } from "./aws.service";
 import { ApiClientService } from "./api-client.service";
-import { Match } from "./match.service";
 
 @Injectable()
 export class ApiGatewayService {
@@ -14,15 +13,14 @@ export class ApiGatewayService {
 
   endpoints = null;
 
-  constructor(private aws: AwsService, private apiClientService: ApiClientService,
-              private match: Match) {
+  constructor(private aws: AwsService, private apiClientService: ApiClientService) {
 
     let ref = this;
 
     this.apiClientService.$client.subscribe((client) => {
         ref.client = client;
         if(ref.endpoints === null){
-            ref.loadEndpoints();
+            //ref.loadEndpoints();
         }
     });
   }
@@ -38,7 +36,7 @@ export class ApiGatewayService {
     };
   }
 
-  private loadEndpoints() {
+  /*private loadEndpoints() {
     let ref = this;
     ref.endpoints = {};
 
@@ -59,7 +57,7 @@ export class ApiGatewayService {
     });
 
     return ref.endpoints;
-  }
+  }*/
 
   private makeFunction(endpoint: string, request: string){
     return function() {}

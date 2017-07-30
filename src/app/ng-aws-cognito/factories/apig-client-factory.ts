@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 
-import { IAMCredentials } from "./iam-credentials";
+import { IAMCredentials } from "../interfaces/iam-credentials";
 
 export class ApigClientFactory {
 
