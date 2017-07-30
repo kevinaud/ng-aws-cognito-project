@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 
-import { ApigClientFactory } from "./apig-client-factory";
-import { IAMCredentials } from "./iam-credentials";
+import { ApigClientFactory } from "../apig-client-factory";
+import { IAMCredentials } from "../interfaces/iam-credentials";
 import { UserService } from "./user.service";
 
 @Injectable()

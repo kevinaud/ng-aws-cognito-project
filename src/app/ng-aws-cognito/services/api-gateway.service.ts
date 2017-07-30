@@ -14,7 +14,7 @@ export class ApiGatewayService {
 
   endpoints = null;
 
-  constructor(private aws: AwsService, private apiClientService: ApiClientService, 
+  constructor(private aws: AwsService, private apiClientService: ApiClientService,
               private match: Match) {
 
     let ref = this;
@@ -66,7 +66,7 @@ export class ApiGatewayService {
     /*switch(request){
       case "Post":
         return function(params, body, addParams){
-               
+
         }
 
       case "Get":
