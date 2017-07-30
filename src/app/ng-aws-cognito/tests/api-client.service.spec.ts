@@ -3,11 +3,11 @@ import { TestBed, async, inject, fakeAsync, tick } from "@angular/core/testing";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 
-import { ApiClientService } from "../api-client.service";
+import { ApiClientService } from "../services/api-client.service";
 import { ApigClientFactory } from "../apig-client-factory";
-import { AwsService } from "../aws.service";
-import { UserService } from "../user.service";
-import { LocalStorageService } from "../local-storage.service";
+import { AwsService } from "../services/aws.service";
+import { UserService } from "../services/user.service";
+import { LocalStorageService } from "../services/local-storage.service";
 
 class AwsServiceStub {
 

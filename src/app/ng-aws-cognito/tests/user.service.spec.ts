@@ -2,10 +2,10 @@
 
 import { TestBed, async, inject } from "@angular/core/testing";
 
-import { UserService } from "../user.service";
-import { AwsService } from "../aws.service";
-import { ApiClientService } from "../api-client.service";
-import { LocalStorageService } from "../local-storage.service";
+import { UserService } from "../services/user.service";
+import { AwsService } from "../services/aws.service";
+import { ApiClientService } from "../services/api-client.service";
+import { LocalStorageService } from "../services/local-storage.service";
 
 const LocalStorageServiceStub  = {
 
@@ -121,14 +121,14 @@ describe("Service: UserService", () => {
 
     }));
 
-    it("should not try to initialize auth status if no stored token is found", 
+    it("should not try to initialize auth status if no stored token is found",
        inject([ UserService ], (service: UserService) => {
 
            let storage = TestBed.get(LocalStorageService);
            expect(storage.getItem("token")).toBeUndefined();
 
-           //spyOn(service, "initializeFromToken");
-           //expect(service.initializeFromToken).toHaveBeenCalled()*/
+           //spyOn(services, "initializeFromToken");
+           //expect(services.initializeFromToken).toHaveBeenCalled()*/
 
 /*TestBed.configureTestingModule({
 providers: [
@@ -172,17 +172,17 @@ UserService,
             storage.setItem("token", "test");
             });
 
-it("should try to initialize auth status if a token is stored already", 
+it("should try to initialize auth status if a token is stored already",
         inject([ UserService ], (service: UserService) => {
 
-//expect(service.flag).toBeFalsy();
+//expect(services.flag).toBeFalsy();
 
 let storage = TestBed.get(LocalStorageService);
 storage.setItem("token", "test");
 //expect(storage.getItem('test')).toEqual("test");
 
-//spyOn(service, "initializeFromToken");
-//expect(service.initializeFromToken).toHaveBeenCalled()
+//spyOn(services, "initializeFromToken");
+//expect(services.initializeFromToken).toHaveBeenCalled()
 
        }));
 

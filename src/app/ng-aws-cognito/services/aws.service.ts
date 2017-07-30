@@ -1,7 +1,7 @@
 import { Injectable, Inject, Optional } from "@angular/core";
 
-import { COGNITO_CONFIG } from "./cognito-config-token";
-import { AwsCognitoConfig } from "./aws-cognito-config";
+import { COGNITO_CONFIG } from "../cognito-config-token";
+import { AwsCognitoConfig } from "../interfaces/aws-cognito-config";
 
 import * as sdk from "aws-sdk";
 import * as AWSCognito from "amazon-cognito-identity-js";
@@ -86,9 +86,9 @@ export class AwsService {
     newPasswordRequiredHandler(cognitoUser, cb) {
 
         return function(userAttributes, requiredAttributes) {
-            // User was signed up by an admin and must provide new  
-            // password and required attributes, if any, to complete  
-            // authentication. 
+            // User was signed up by an admin and must provide new
+            // password and required attributes, if any, to complete
+            // authentication.
             let newPassword = prompt("You must set your password");
 
             let response;
@@ -99,7 +99,7 @@ export class AwsService {
                 attributesData[attribute] = response;
             });
 
-            // Get these details and call  
+            // Get these details and call
             cognitoUser.completeNewPasswordChallenge(newPassword, attributesData, this);
 
             cb(null, "Password Updated");

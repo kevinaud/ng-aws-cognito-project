@@ -2,9 +2,9 @@
 /*
 import { TestBed, async, inject } from "@angular/core/testing";
 
-import { IAMCredentialsService } from "../iam-credentials.service";
+import { IAMCredentialsService } from "../iam-credentials.services";
 import { IAMCredentials } from "../iam-credentials";
-import { LocalStorageService } from "../local-storage.service";
+import { LocalStorageService } from "../local-storage.services";
 
 const LocalStorageServiceStub  = {
 
@@ -38,12 +38,12 @@ describe("Service: IAMCredentialsService", () => {
         });
     });
 
-    it("should exist", inject([ IAMCredentialsService ], (service: IAMCredentialsService) => {
-        expect(service).toBeTruthy();
+    it("should exist", inject([ IAMCredentialsService ], (services: IAMCredentialsService) => {
+        expect(services).toBeTruthy();
     }));
 
     it("should check if there are already credentials stored",
-       inject([ IAMCredentialsService ], (service: IAMCredentialsService) => {
+       inject([ IAMCredentialsService ], (services: IAMCredentialsService) => {
 
            let storage = TestBed.get(LocalStorageService);
            const credentials: IAMCredentials =  {
@@ -55,16 +55,16 @@ describe("Service: IAMCredentialsService", () => {
 
            storage.setItem("IAMCredentials", credentials);
 
-           expect(service).toBeTruthy();
+           expect(services).toBeTruthy();
 
        }));
 
-       it("should be able to parse a jwt", inject([ IAMCredentialsService ], (service: IAMCredentialsService) => {
+       it("should be able to parse a jwt", inject([ IAMCredentialsService ], (services: IAMCredentialsService) => {
            let credentials = {
                "Credentials": {
-                   "SecretAccessKey": "LHN15j7mzpnCGYCN6HgBdM/3UbNZ3h2jI+08dHd/", 
-                   "SessionToken": "FQoDYXdzEBwaDJNKiCCXeB7sXFH0CyKsAb3LIgo7sDR2X+rYF0404pKKuc4iejbotAOeq5mjPn8MC8GFWYvGUMf7hCtXdydwhxOfT5397cgY6gyrYG7fiHeIBKipZpXsV4VTxEyapzdUsNUjeyMVGJHZ5fopMJGDnRwjEtgPlCzscWldp1mu5+89A/iNZunfwUndP0vlqpfxFpNTVlMJW5gfgL/cMU2gioWlgbMbGRNFP/bGEnNNsPaaGd6xRAMTk0Zd0sMo57OhwgU=", 
-                   "Expiration": "2016-12-01T06:50:15Z", 
+                   "SecretAccessKey": "LHN15j7mzpnCGYCN6HgBdM/3UbNZ3h2jI+08dHd/",
+                   "SessionToken": "FQoDYXdzEBwaDJNKiCCXeB7sXFH0CyKsAb3LIgo7sDR2X+rYF0404pKKuc4iejbotAOeq5mjPn8MC8GFWYvGUMf7hCtXdydwhxOfT5397cgY6gyrYG7fiHeIBKipZpXsV4VTxEyapzdUsNUjeyMVGJHZ5fopMJGDnRwjEtgPlCzscWldp1mu5+89A/iNZunfwUndP0vlqpfxFpNTVlMJW5gfgL/cMU2gioWlgbMbGRNFP/bGEnNNsPaaGd6xRAMTk0Zd0sMo57OhwgU=",
+                   "Expiration": "2016-12-01T06:50:15Z",
                    "AccessKeyId": "ASIAJ7C2F3IT63UO5QKQ"
                }
            }
@@ -77,7 +77,7 @@ describe("Service: IAMCredentialsService", () => {
                name: "John Doe",
                admin: true
            }
-           let parsed = service.parseJwt(token);
+           let parsed = services.parseJwt(token);
 
            expect(parsed).toEqual(expectedPayload);
        }));

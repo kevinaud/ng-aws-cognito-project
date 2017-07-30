@@ -2,9 +2,9 @@
 import { TestBed, async, inject } from "@angular/core/testing";
 import { BehaviorSubject } from "rxjs";
 
-import { ApiGatewayService } from "../api-gateway.service";
+import { ApiGatewayService } from "../services/api-gateway.service";
 import { AwsService, ApiClientService } from "../index";
-import { Match } from "../match.service";
+import { Match } from "../services/match.service";
 
 class AwsServiceStub { }
 
