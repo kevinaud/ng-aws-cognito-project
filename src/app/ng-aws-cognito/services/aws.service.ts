@@ -13,6 +13,7 @@ export class AwsService {
     cognitoConfig: AwsCognitoConfig;
 
     CognitoUserPool = AWSCognito.CognitoUserPool;
+    cognitoUser = null;
 
     constructor(@Inject(COGNITO_CONFIG) awsCognitoConfig: AwsCognitoConfig) {
 
@@ -49,14 +50,14 @@ export class AwsService {
         let ref = this;
 
         let userPool = this.makeCognitoUserPoolObject();
-        let cognitoUser = this.makeCognitoUserObject(username, userPool);
+        this.cognitoUser = this.makeCognitoUserObject(username, userPool);
         let authDetails = this.makeAuthDetailsObject(username, password);
 
-        cognitoUser.authenticateUser(authDetails, {
+        this.cognitoUser.authenticateUser(authDetails, {
 
             onSuccess: ref.onSuccessHandler(cb),
             onFailure: ref.onFailureHandler(cb),
-            newPasswordRequired: ref.newPasswordRequiredHandler(cognitoUser, cb)
+            newPasswordRequired: ref.newPasswordRequiredHandler(this.cognitoUser, cb)
 
         });
 
@@ -76,6 +77,7 @@ export class AwsService {
     }
 
     onFailureHandler(cb) {
+        this.cognitoUser = null;
         return function(err) {
             cb(err);
         }
@@ -163,6 +165,7 @@ export class AwsService {
         let cognitoUser = userPool.getCurrentUser();
 
         if (cognitoUser != null) {
+            this.cognitoUser = cognitoUser;
             cognitoUser.getSession(function(err, session) {
                 if (err) {
                     console.log(err);
@@ -174,7 +177,29 @@ export class AwsService {
         }  
     }
 
-    getUserAttributes(success, error) {
+    public getUserAttributes(success, error) {
+        if (this.cognitoUser == null) {
+            return error(); 
+        }
+        console.log('calling get user attributes');
+        this.cognitoUser.getUserAttributes(function(err, result) {
+            if (err) {
+                return error(err);
+            }
+            let user = {};
+            for (let i = 0; i < result.length; i++) {
+                let key = result[i].getName();
+                let value = result[i].getValue();
 
+                user[key] = value;
+            }
+
+            success(user);
+        });
     }
 }
+
+
+
+
+
