@@ -9,12 +9,13 @@ import { LocalStorageService } from "./local-storage.service";
 export class UserService implements OnInit {
 
     public $auth: BehaviorSubject<boolean>;
-    public flag = false;
+    public $user: BehaviorSubject<any>;
 
     private user = null;
 
     constructor(private aws: AwsService, private storage: LocalStorageService) {
         this.$auth = new BehaviorSubject(false);
+        this.$user = new BehaviorSubject(this.user);
         this.ngOnInit();
     }
 
@@ -25,15 +26,14 @@ export class UserService implements OnInit {
         this.aws.getCurrentUserValidity(
             (isValid) => {
                 if (isValid) {
-                    console.log('valid user found');
-                    this.$auth.next(true);
+                    this.loadUserAttributes(() => {
+                        this.$auth.next(true);
+                    });
                 } else {
-                    console.log('no valid user found');
                     this.$auth.next(false);
                 }
             },
             (error) => {
-                console.log('getCurrentUser error: ', error);
                 this.$auth.next(false);
             }
         );
@@ -42,24 +42,18 @@ export class UserService implements OnInit {
 
     public login(username, password): Observable<any> {
 
+        let ref = this;
         let promise = new Promise((resolve, reject) => {
             this.aws.cognitoLogin(username, password, (error, success) => {
-
                 if (error) {
                     this.$auth.next(false);
                     reject(error);
                 }
                 else {
-                    /*this.aws.getUserAttributes(
-                        (success) => {
-                        
-                        },
-                        (error) => {
-                        
-                        }
-                    );*/
-                    this.$auth.next(true);
-                    resolve(success);
+                    this.loadUserAttributes(() => {
+                        this.$auth.next(true);
+                        resolve(success);
+                    });
                 }
 
             });
@@ -70,15 +64,46 @@ export class UserService implements OnInit {
 
     public logout() {
         this.deleteStoredTokens();
+        this.setUser(null);
         this.$auth.next(false);
-    }
-
-    public getUser() {
-        return {};         
     }
 
     private deleteStoredTokens() {
         this.storage.regexRemoveItems('CognitoIdentityServiceProvider.*');
     }
 
+    private loadUserAttributes(cb) {
+        this.aws.getUserAttributes(
+            (userAttributes) => {
+                this.setUser(userAttributes);
+                cb();
+            },
+            (error) => {
+                this.setUser(null);
+                cb();
+            }
+        );
+    }
+
+    public getUser() {
+        return this.user;         
+    }
+
+    private setUser(user) {
+        this.user = user;
+        this.$user.next(this.user);
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+

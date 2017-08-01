@@ -5,22 +5,41 @@ import { TestBed, async, inject } from "@angular/core/testing";
 import { UserService } from "../services/user.service";
 import { AwsService } from "../services/aws.service";
 import { ApiClientService } from "../services/api-client.service";
-import { 
-    LocalStorageService,
-    LocalStorageServiceStub
-} from "../services/local-storage.service";
+import { LocalStorageService } from "../services/local-storage.service";
+
+const LocalStorageServiceStub = {
+    regexRemoveItems(pattern: string) {
+
+    }
+};
 
 const AwsServiceStub = {
+
+    loggedIn: false,
+
     cognitoLogin(username, password, cb){
         if(username === "correctUsername" && password === "correctPassword") {
+            this.loggedIn = true;
             return cb (null, "successfully logged in");
         } else {
+            this.loggedIn = false;
             return cb ("not logged in");
         }
     },
 
     getCurrentUserValidity(success, error) {
     
+    },
+
+    getUserAttributes(success, error) {
+        if (this.loggedIn) {
+            success({
+                firstName: "first",
+                lastName: "last"
+            });
+        } else {
+            error("not logged in"); 
+        }
     }
 }
 
@@ -81,7 +100,6 @@ describe("Service: UserService", () => {
                 expect(error).toBeTruthy();
             }
         );
-
     }));
 
     it("should have a user object that is not null if the login is successful", inject([ UserService ], (service: UserService) => {
@@ -94,7 +112,7 @@ describe("Service: UserService", () => {
 
     }));
 
-    /*it("should have a user object that is null if the login is fails", inject([ UserService ], (service: UserService) => {
+    it("should have a user object that is null if the login is fails", inject([ UserService ], (service: UserService) => {
         service.ngOnInit();
         service.login("incorrectUsername", "incorrectPassword").subscribe(
             (success) => { },
@@ -103,7 +121,22 @@ describe("Service: UserService", () => {
             }
         );
 
-    }));*/
+    }));
+
+    it("should store the user attributes it gets if the login is successful", inject([ UserService ], (service: UserService) => {
+        service.ngOnInit();
+        service.login("correctUsername", "correctPassword").subscribe(
+            (success) => {
+                let user = service.getUser();
+
+                expect(user.firstName).toBeDefined();  
+                expect(user.firstName).toEqual("first");  
+
+                expect(user.lastName).toBeDefined();  
+                expect(user.lastName).toEqual("last");  
+            }
+        );
+    }));
 
     it("should check if there is already a stored user upon app initialization", 
         inject([ UserService ], (service: UserService) => {
@@ -164,5 +197,91 @@ describe("Service: UserService", () => {
             });
        })
     );
+
+    it("should have a $user property that can be subscribed to", 
+        inject([ UserService ], (service: UserService) => {
+            service.$user.subscribe((user) => {
+                expect(true).toBeTruthy();
+            });
+        })
+    );
+
+    it("should have a $user property that is initialized to null", 
+        inject([ UserService ], (service: UserService) => {
+            service.$user.subscribe((user) => {
+                expect(user).toBe(null);
+            });
+        })
+    );
+
+    it("should have a $user property that stays null after a failed login", 
+        inject([ UserService ], (service: UserService) => {
+            service.login("incorrectUsername", "incorrectPassword").subscribe(
+                (success) => {
+                    expect(true).toBeFalsy();
+                },
+                (error) => {
+                    service.$user.subscribe((user) => {
+                        expect(user).toBe(null);
+                    });
+                }
+            );
+        })
+    );
+
+
+    it("should have a $user property that is not null after a successful login", 
+        inject([ UserService ], (service: UserService) => {
+            service.login("correctUsername", "correctPassword").subscribe(
+                (success) => {
+                    service.$user.subscribe((user) => {
+                        expect(user).not.toBe(null);
+                    });
+                },
+                (error) => {
+                    expect(true).toBeFalsy();
+                }
+            );
+        })
+    );
+
+    it("should have a $user property that is set to null after logout", 
+        inject([ UserService ], (service: UserService) => {
+            service.login("correctUsername", "correctPassword").subscribe(
+                (success) => {
+                    service.$user.first().subscribe((user) => {
+                        expect(user).not.toBe(null);
+                    });
+
+                    service.logout();
+
+                    service.$user.first().subscribe((user) => {
+                        expect(user).toBe(null);
+                    });
+                },
+                (error) => {
+                    expect(true).toBeFalsy();
+                }
+            );
+        })
+    );
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

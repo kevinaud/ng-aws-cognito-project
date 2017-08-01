@@ -25,5 +25,9 @@ describe("Service: AwsService", () => {
     it("should ...", inject([ AwsService ], (service: AwsService) => {
         expect(service).toBeTruthy();
     }));
+
+    it("should have a method called getUserAttributes", inject([ AwsService ], (service: AwsService) => {
+        expect(service.getUserAttributes).toBeDefined();
+    }));
 });
 

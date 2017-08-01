@@ -62,5 +62,9 @@ export class LocalStorageServiceStub {
         this.storage = {};
     }
 
+    regexRemoveItems(pattern: string) {
+
+    }
+
 };
 
