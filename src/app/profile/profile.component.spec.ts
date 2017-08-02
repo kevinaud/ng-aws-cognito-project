@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { DebugElement, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { UserService } from 'ng-aws-cognito';
@@ -11,6 +11,7 @@ import { ProfileComponent } from './profile.component';
 class UserServiceStub {
 
     $auth: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+    $user: BehaviorSubject<any> = new BehaviorSubject<any>({})
 
 }
 
@@ -23,6 +24,9 @@ describe('ProfileComponent', () => {
             declarations: [ ProfileComponent ],
             providers: [
                 { provide: UserService, useValue: UserServiceStub }
+            ],
+            schemas: [
+                CUSTOM_ELEMENTS_SCHEMA 
             ]
         })
         .compileComponents();
@@ -34,7 +38,4 @@ describe('ProfileComponent', () => {
         fixture.detectChanges();
     });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
 });

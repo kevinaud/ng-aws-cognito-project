@@ -21,8 +21,6 @@ export class UserService implements OnInit {
 
     ngOnInit() {
 
-        console.log("user service on init being called");
-
         this.aws.getCurrentUserValidity(
             (isValid) => {
                 if (isValid) {
