@@ -28,15 +28,11 @@ export class LoginComponent implements OnInit {
 
     onSubmit(event) {
 
-        console.log("login");
-        console.log(event);
-
         this.waiting = true;
 
         this.userService.login(event.username, event.password).subscribe(
             (success) => {
 
-                console.log(success);
                 this.waiting = false;
 
                 this.response = {
@@ -49,20 +45,10 @@ export class LoginComponent implements OnInit {
             },
             (error) => {
                 this.waiting = false;
-                console.log(error);
             }
         );
         
         this.responseReceived = false;
         this.waiting = true;
-
-        /*this.mailchimp.subscribeToRecruitment(event).subscribe((response) => {
-
-                this.waiting = false;
-                this.response = response.json();
-                this.responseReceived = true;
-
-            });*/
     }
-
 }

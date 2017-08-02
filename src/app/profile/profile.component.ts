@@ -1,17 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 
-//import { UserService } from 'ng2-aws-cognito';
+import { UserService } from 'ng-aws-cognito';
 
 @Component({
     selector: 'app-profile',
     templateUrl: './profile.component.html',
-    styleUrls: ['./profile.component.css']
+    styleUrls: [ './profile.component.css' ]
 })
 export class ProfileComponent implements OnInit {
 
-    // constructor(private user: UserService) { }
+    user = null;
 
-    ngOnInit() {
+    constructor(private userService: UserService) {
+        this.userService.$user.subscribe((user) => {
+            this.user = user; 
+        });
     }
+
+    ngOnInit() { }
 
 }

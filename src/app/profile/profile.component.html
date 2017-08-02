@@ -9,13 +9,32 @@
 </div>
 
 <div class="row center-xs">
-    <div class="col-xs-11">
+
+    <div class="col-xs-11" *ngIf="!(userService.$auth | async)">
         <div class="box">
 
-            <!--      <h2 class="text-center" *ngIf="user.$auth | async">You are logged in</h2>
-            <h2 class="text-center" *ngIf="!(user.$auth | async)">You are not logged in</h2> -->
+            <h2 class="text-center">You are not logged in</h2>
 
         </div>
     </div>
+
+    <div *ngIf="userService.$auth | async" class="col-xs-11 col-sm-7 col-md-6 col-lg-4">
+        <div class="box">
+
+            <md-card>
+
+                <md-card-content>
+                    <md-list>
+                        <md-list-item>Name: {{ user.name }}</md-list-item>
+                        <md-list-item>Email: {{ user.email }}</md-list-item>
+                        <md-list-item>Email Verified: {{ user.email_verified }}</md-list-item>
+                    </md-list>
+                </md-card-content>
+
+            </md-card>
+
+        </div>
+    </div>
+
 </div>
 

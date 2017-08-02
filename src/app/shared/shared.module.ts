@@ -9,7 +9,11 @@ import { SharedMaterialModule } from './shared-material.module';
         FormsModule
     ],
     declarations: [],
-    exports: [ CommonModule, FormsModule, SharedMaterialModule ]
+    exports: [
+        CommonModule,
+        FormsModule,
+        SharedMaterialModule
+    ]
 })
 export class SharedModule {
 }

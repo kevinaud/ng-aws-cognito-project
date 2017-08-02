@@ -1,6 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MdButtonModule, MdCardModule, MdIconModule } from '@angular/material';
+import { 
+    MdButtonModule, 
+    MdCardModule, 
+    MdIconModule,
+    MdListModule
+} from '@angular/material';
 
 
 @NgModule({
@@ -8,7 +13,8 @@ import { MdButtonModule, MdCardModule, MdIconModule } from '@angular/material';
         CommonModule,
         MdCardModule,
         MdButtonModule,
-        MdIconModule
+        MdIconModule,
+        MdListModule
     ]
 })
 export class SharedMaterialModule {
