@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { UserService } from 'ng-aws-cognito';
 
 import { QuestionService } from '../shared/forms/question.service';
@@ -10,6 +12,8 @@ import { QuestionService } from '../shared/forms/question.service';
 })
 export class LoginComponent implements OnInit {
 
+    title = "Login";
+
     questions;
     waiting = false;
     responseReceived = false;
@@ -18,7 +22,11 @@ export class LoginComponent implements OnInit {
         message: ''
     };
 
-    constructor(private service: QuestionService, private userService: UserService) {
+    constructor(
+        private service: QuestionService, 
+        private userService: UserService,
+        private router: Router
+    ) {
         this.questions = service.getLoginQuestions();
     }
 
@@ -41,10 +49,18 @@ export class LoginComponent implements OnInit {
                 };
 
                 this.responseReceived = true;
+                this.router.navigate(['profile']);
 
             },
             (error) => {
                 this.waiting = false;
+
+                this.response = {
+                    success: false,
+                    message: error
+                };
+
+                this.responseReceived = true;
             }
         );
         

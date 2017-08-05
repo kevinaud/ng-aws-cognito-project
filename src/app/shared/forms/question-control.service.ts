@@ -11,23 +11,38 @@ export class QuestionControlService {
         let group: any = {};
 
         questions.forEach(question => {
-            if (question.controlType === 'date') {
 
-                let dateGroup = this.initDateGroup(question);
+            switch (question.controlType) {
+            
+                case 'date':
+                    let dateGroup = this.initDateGroup(question);
+                    group[question.key] = new FormGroup(dateGroup);
+                    break;
+                
+                case 'address':
+                    let addressGroup = this.initAddressGroup(question);
+                    group[question.key] = new FormGroup(addressGroup);
+                    break;
 
-                group[question.key] = new FormGroup(dateGroup);
+                default:
 
-            } else if (question.controlType === 'address') {
+                    let validators = [];
 
-                let addressGroup = this.initAddressGroup(question);
+                    if (question.required) {
+                        validators.push(Validators.required);
+                    } 
 
-                group[question.key] = new FormGroup(addressGroup);
+                    let value = '';
 
-            } else {
-                group[question.key] = question.required ? new FormControl(question.value || '', Validators.required)
-                    : new FormControl(question.value || '');
+                    if (question.value) {
+                        value = question.value;
+                    }
+
+                    group[question.key] = new FormControl(value, validators);
             }
+
         });
+
         return new FormGroup(group);
     }
 
@@ -38,13 +53,13 @@ export class QuestionControlService {
         group['day'] = question.required ? new FormControl(question.value.day || '', Validators.required)
             : new FormControl(question.value.day || '');
 
-            group['month'] = question.required ? new FormControl(question.value.month || '', Validators.required)
-                : new FormControl(question.value.month || '');
+        group['month'] = question.required ? new FormControl(question.value.month || '', Validators.required)
+            : new FormControl(question.value.month || '');
 
-                group['year'] = question.required ? new FormControl(question.value.year || '', Validators.required)
-                    : new FormControl(question.value.year || '');
+        group['year'] = question.required ? new FormControl(question.value.year || '', Validators.required)
+            : new FormControl(question.value.year || '');
 
-                    return group;
+        return group;
 
     };
 
@@ -55,19 +70,19 @@ export class QuestionControlService {
         group['line1'] = question.required ? new FormControl(question.value.line1 || '', Validators.required)
             : new FormControl(question.value.line1 || '');
 
-            group['line2'] = question.required ? new FormControl(question.value.line2 || '', Validators.required)
-                : new FormControl(question.value.line2 || '');
+        group['line2'] = question.required ? new FormControl(question.value.line2 || '', Validators.required)
+            : new FormControl(question.value.line2 || '');
 
-                group['city'] = question.required ? new FormControl(question.value.city || '', Validators.required)
-                    : new FormControl(question.value.city || '');
+        group['city'] = question.required ? new FormControl(question.value.city || '', Validators.required)
+            : new FormControl(question.value.city || '');
 
-                    group['state'] = question.required ? new FormControl(question.value.state || '', Validators.required)
-                        : new FormControl(question.value.state || '');
+        group['state'] = question.required ? new FormControl(question.value.state || '', Validators.required)
+            : new FormControl(question.value.state || '');
 
-                        group['zip'] = question.required ? new FormControl(question.value.zip || '', Validators.required)
-                            : new FormControl(question.value.zip || '');
+        group['zip'] = question.required ? new FormControl(question.value.zip || '', Validators.required)
+            : new FormControl(question.value.zip || '');
 
-                            return group;
+        return group;
 
     };
 

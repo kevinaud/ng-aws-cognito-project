@@ -6,11 +6,16 @@ import { ProfileModule } from '../profile/profile.module';
 import { SignUpModule } from '../sign-up/sign-up.module';
 import { LoginModule } from '../login/login.module';
 
+import { AppWaitingService } from '../app-waiting.service';
+
 @NgModule({
     imports: [
         CommonModule
     ],
     declarations: [],
+    providers: [
+        AppWaitingService
+    ],
     exports: [
         ProfileModule,
         HomeModule,

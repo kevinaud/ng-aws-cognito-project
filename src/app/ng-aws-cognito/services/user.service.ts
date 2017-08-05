@@ -47,7 +47,7 @@ export class UserService implements OnInit {
             this.aws.cognitoLogin(username, password, (error, success) => {
                 if (error) {
                     this.$auth.next(false);
-                    reject(error);
+                    reject(error.message);
                 } else {
                     this.loadUserAttributes(() => {
                         this.$auth.next(true);
@@ -84,7 +84,7 @@ export class UserService implements OnInit {
         let promise = new Promise((resolve, reject) => {
             this.aws.cognitoSignUp(username, password, attributeList, (error, success) => {
                 if (error) {
-                    reject(error);
+                    reject(error.message);
                 } else {
                     resolve(success);
                 }
@@ -99,6 +99,22 @@ export class UserService implements OnInit {
         let ref = this;
         let promise = new Promise((resolve, reject) => {
             this.aws.cognitoConfirmUser(username, confirmationCode, (error, success) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(success);
+                }
+            });
+        });
+
+        return Observable.fromPromise(promise);
+    }
+
+    public resendConfirmationCode(username) {
+
+        let ref = this;
+        let promise = new Promise((resolve, reject) => {
+            this.aws.resendConfirmationCode(username, (error, success) => {
                 if (error) {
                     reject(error);
                 } else {

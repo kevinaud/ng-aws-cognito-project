@@ -63,12 +63,7 @@ export class AwsService {
 
     }
 
-    cognitoSignUp(
-        username: string,
-        password: string,
-        attributeList,
-        cb
-    ) {
+    cognitoSignUp(username: string, password: string, attributeList, cb) {
         this.getUserPool().signUp(
             username,
             password,
@@ -77,7 +72,7 @@ export class AwsService {
             (err, result) => {
                 if (err) {
                     console.log(err);
-                    cb(err);
+                    return cb(err);
                 }
                 let cognitoUser = result.user;
                 console.log('user name is ' + cognitoUser.getUsername());
@@ -96,6 +91,26 @@ export class AwsService {
             }
             console.log('call result: ' + result);
             return cb(null, result);
+        });
+    }
+
+    /**
+     * Success return type: {
+     *      Destination: string,    // ex: "k***@g***.com"
+     *      DeliveryMedium: string, // ex: "EMAIL"
+     *      AttributeName: string,  // ex: "email"
+     * }
+     */
+    resendConfirmationCode(username, cb) {
+
+        let cognitoUser = this.makeCognitoUserObject(username, this.getUserPool());
+
+        cognitoUser.resendConfirmationCode(function(err, result) {
+            if (err) {
+                return cb(err);
+            } 
+            console.log('call result: ' + result);
+            return cb(null, (<any>result).CodeDeliveryDetails);
         });
     }
 

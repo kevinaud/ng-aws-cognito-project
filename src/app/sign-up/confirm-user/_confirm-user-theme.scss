@@ -1,0 +1,29 @@
+@import '~@angular/material/theming';
+
+/**
+ * Define a mixin that accepts a theme and outputs the color styles for the component.
+ */
+@mixin confirm-user-theme($theme) {
+
+    /**
+     * Extract whichever individual palettes you need from the theme.
+     */
+    $accent: map-get($theme, accent);
+    $primary: map-get($theme, primary);
+    $warn: map-get($theme, warn);
+
+    /**
+     * Use mat-color to extract individual colors from a palette as necessary.
+     */
+    .resend-code:hover {
+        color: mat-color($primary, A400);
+    }
+
+    .success-snack-bar {
+        background-color: mat-color($accent) !important; 
+    }
+
+    .failure-snack-bar {
+        background-color: mat-color($warn) !important; 
+    }
+}

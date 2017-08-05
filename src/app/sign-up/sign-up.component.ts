@@ -11,25 +11,12 @@ import { QuestionService } from '../shared/forms/question.service';
 })
 export class SignUpComponent implements OnInit {
 
-    questions;
-    waiting = false;
-    responseReceived = false;
+    constructor() {
 
-    response = {
-        success: false,
-        message: ''
-    };
-
-    constructor(private service: QuestionService, private userService: UserService) {
-        this.questions = service.getSignUpQuestions();
     }
 
     ngOnInit() {
 
-    }
-
-    onSubmit(user) {
-        this.userService.signUp(user).subscribe(() => {});
     }
 
 }
