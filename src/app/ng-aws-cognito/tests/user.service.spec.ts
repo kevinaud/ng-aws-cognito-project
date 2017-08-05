@@ -102,6 +102,10 @@ describe("Service: UserService", () => {
         );
     }));
 
+    it("should have a signUp method", inject([ UserService ], (service: UserService) => {
+        expect(service.signUp).toBeDefined();
+    }));
+
     it("should have a user object that is not null if the login is successful", inject([ UserService ], (service: UserService) => {
         service.ngOnInit();
         service.login("correctUsername", "correctPassword").subscribe(

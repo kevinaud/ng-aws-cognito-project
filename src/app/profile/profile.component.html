@@ -22,15 +22,20 @@
         <div class="box">
 
             <md-card>
-
                 <md-card-content>
-                    <md-list>
-                        <md-list-item>Name: {{ user.name }}</md-list-item>
-                        <md-list-item>Email: {{ user.email }}</md-list-item>
-                        <md-list-item>Email Verified: {{ user.email_verified }}</md-list-item>
-                    </md-list>
-                </md-card-content>
 
+                    <md-list>
+                        <md-list-item 
+                            *ngFor="let attribute of attributes">
+                            
+                            <app-user-attribute
+                                [attribute]="attribute">
+                            </app-user-attribute>
+
+                        </md-list-item>
+                    </md-list>
+
+                </md-card-content>
             </md-card>
 
         </div>

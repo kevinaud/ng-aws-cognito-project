@@ -7,14 +7,10 @@
 
     <a class="title" [routerLink]="['/home']">Ng2 Aws Cognito Example</a>
 
-    <!-- <button md-button
+    <button md-button
         (click)="logout()"
         class="logout-btn"
-        *ngIf="user.$auth | async">LOGOUT</button>-->
-
-    <button md-button
-            (click)="logout()"
-            class="logout-btn">LOGOUT</button>
+        *ngIf="userService.$auth | async">LOGOUT</button>
 
 </md-toolbar>
 
@@ -35,9 +31,10 @@
             </div>
             <div class="col-xs-12" *ngFor="let navLocation of navLocations">
 
-                <div class="box sidenav-item-box">
+                <div 
+                    *ngIf="navLocation.$display | async"
+                    class="box sidenav-item-box">
 
-                    <!-- temp -->
                     <div class="sidenav-item"
                          routerLinkActive="selected"
                          [routerLink]="navLocation.route">

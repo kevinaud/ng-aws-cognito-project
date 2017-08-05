@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { 
-    MdButtonModule, 
-    MdCardModule, 
+import {
+    MdButtonModule,
+    MdCardModule,
     MdIconModule,
-    MdListModule
+    MdInputModule
 } from '@angular/material';
 
 
@@ -14,7 +14,7 @@ import {
         MdCardModule,
         MdButtonModule,
         MdIconModule,
-        MdListModule
+        MdInputModule
     ]
 })
 export class SharedMaterialModule {

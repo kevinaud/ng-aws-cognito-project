@@ -1,0 +1,44 @@
+<div class="row start-xs middle-xs">
+    <div class="col-xs-3">
+        <div class="box attribute-name">
+
+            {{ attribute.Name }}:
+
+        </div>
+    </div>
+
+    <div class="col-xs-7">
+        <div class="box" *ngIf="!editable">
+
+            {{ attribute.Value }}
+
+        </div>
+        <div class="box" *ngIf="editable">
+
+            <md-input-container>
+                <input 
+                    mdInput 
+                    attr.placeholder="{{attribute.Name}}" 
+                    [attr.value]="attribute.Value">
+            </md-input-container>
+
+        </div>
+    </div>
+
+    <div class="col-xs-2">
+        <div class="box">
+
+            <button
+                md-button
+                *ngIf="!editable"
+                (click)="setEditable(true)">edit</button>
+
+            <button
+                md-raised-button
+                color="primary"
+                *ngIf="editable"
+                (click)="setEditable(false)">save</button>
+
+        </div>
+    </div>
+</div>

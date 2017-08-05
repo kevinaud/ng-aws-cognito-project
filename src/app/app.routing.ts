@@ -1,6 +1,7 @@
 import { ModuleWithProviders } from '@angular/core';
-import {Routes, RouterModule, NoPreloading} from '@angular/router';
+import { Routes, RouterModule, NoPreloading } from '@angular/router';
 
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
 const appRoutes: Routes = [
     {
@@ -26,23 +27,43 @@ const appRoutes: Routes = [
     }
 ];
 
-export const appNavLocations = [
+export const appNavLocations: NavLocation[] = [
     {
         title: 'Home',
-        route: '/home'
+        route: '/home',
+        authenticated: true,
+        unauthenticated: true,
+        $display: new BehaviorSubject(true)
     },
     {
         title: 'Login',
-        route: '/login'
-    },
-    {
-        title: 'Profile',
-        route: '/profile'
+        route: '/login',
+        authenticated: false,
+        unauthenticated: true,
+        $display: new BehaviorSubject(true)
     },
     {
         title: 'Sign Up',
-        route: '/sign-up'
+        route: '/sign-up',
+        authenticated: false,
+        unauthenticated: true,
+        $display: new BehaviorSubject(true)
+    },
+    {
+        title: 'Profile',
+        route: '/profile',
+        authenticated: true,
+        unauthenticated: false,
+        $display: new BehaviorSubject(false)
     }
 ];
+
+export interface NavLocation {
+    title: string;
+    route: string;
+    authenticated: boolean;
+    unauthenticated: boolean;
+    $display: BehaviorSubject<any>;
+}
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes, {useHash: true, preloadingStrategy: NoPreloading});

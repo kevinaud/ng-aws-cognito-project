@@ -2,6 +2,7 @@ import { Injectable, Inject, Optional } from "@angular/core";
 
 import { COGNITO_CONFIG } from "../cognito-config-token";
 import { AwsCognitoConfig } from "../interfaces/aws-cognito-config";
+import { CognitoUserAttribute } from '../interfaces/cognito-user-attribute';
 
 import * as sdk from "aws-sdk";
 import * as AWSCognito from "amazon-cognito-identity-js";
@@ -60,6 +61,42 @@ export class AwsService {
 
         });
 
+    }
+
+    cognitoSignUp(
+        username: string,
+        password: string,
+        attributeList,
+        cb
+    ) {
+        this.getUserPool().signUp(
+            username,
+            password,
+            attributeList,
+            null,
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                    cb(err);
+                }
+                let cognitoUser = result.user;
+                console.log('user name is ' + cognitoUser.getUsername());
+                cb(null, cognitoUser.getUsername());
+            }
+        ); 
+    }
+
+    cognitoConfirmUser(username, confirmationCode, cb) {
+
+        let cognitoUser = this.makeCognitoUserObject(username, this.getUserPool());
+
+        cognitoUser.confirmRegistration(confirmationCode, true, function(err, result) {
+            if (err) {
+                return cb(err);
+            }
+            console.log('call result: ' + result);
+            return cb(null, result);
+        });
     }
 
     onSuccessHandler(cb) {
