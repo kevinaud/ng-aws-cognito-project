@@ -1,9 +1,11 @@
-import { Injectable, OnInit } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
+import { Injectable, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
-import { ApiGatewayService } from "./api-gateway.service";
-import { AwsService } from "./aws.service";
-import { LocalStorageService } from "./local-storage.service";
+import { ApiGatewayService } from './api-gateway.service';
+import { AwsService } from './aws.service';
+import { CognitoUser } from '../interfaces/cognito-user';
+import { CognitoUserAttribute } from '../interfaces/cognito-user-attribute';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable()
 export class UserService implements OnInit {
@@ -46,14 +48,62 @@ export class UserService implements OnInit {
                 if (error) {
                     this.$auth.next(false);
                     reject(error);
-                }
-                else {
+                } else {
                     this.loadUserAttributes(() => {
                         this.$auth.next(true);
                         resolve(success);
                     });
                 }
 
+            });
+        });
+
+        return Observable.fromPromise(promise);
+    }
+
+    public signUp(user: CognitoUser) {
+
+        let username = user.username;
+        let password = user.password;
+
+        delete user.username;
+        delete user.password;
+
+        let attributeList = [];
+
+        Object.getOwnPropertyNames(user).forEach((property) => {
+            let attribute = {
+                Name: property,
+                Value: user[property]
+            };
+
+            attributeList.push(attribute);
+        });
+    
+        let ref = this;
+        let promise = new Promise((resolve, reject) => {
+            this.aws.cognitoSignUp(username, password, attributeList, (error, success) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(success);
+                }
+            });
+        });
+
+        return Observable.fromPromise(promise);
+    }
+
+    public confirmUser(username, confirmationCode) {
+
+        let ref = this;
+        let promise = new Promise((resolve, reject) => {
+            this.aws.cognitoConfirmUser(username, confirmationCode, (error, success) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(success);
+                }
             });
         });
 
@@ -93,15 +143,3 @@ export class UserService implements OnInit {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-

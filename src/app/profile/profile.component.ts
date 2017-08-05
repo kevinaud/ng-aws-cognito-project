@@ -11,12 +11,31 @@ export class ProfileComponent implements OnInit {
 
     user = null;
 
+    attributes = null;
+
     constructor(private userService: UserService) {
         this.userService.$user.subscribe((user) => {
             this.user = user; 
         });
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+    
+        this.attributes = [
+            {
+                Name: 'Name',
+                Value: 'Kevin Aud'
+            },
+            {
+                Name: 'Email',
+                Value: 'kevinaud@gmail.com'
+            },
+            {
+                Name: 'Email Verified',
+                Value: true
+            }
+        ]; 
+    
+    }
 
 }

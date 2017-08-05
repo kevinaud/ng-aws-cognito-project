@@ -4,12 +4,19 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { NgAwsCognitoModule } from 'ng-aws-cognito';
+
 import { CoreModule } from './core/core.module';
 import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { MdButtonModule, MdIconModule, MdSidenavModule, MdToolbarModule } from "@angular/material";
 
-
+const awsCognitoConfig = {
+    region: 'us-east-1',
+    userPoolId: 'us-east-1_tOZsRGlY8',
+    identityPoolId: 'us-east-1:74cc911d-c013-439c-afe3-c9f25b37fadc',
+    clientId: '8st7il9b9nsn1fqjko787bsqc'
+};
 
 @NgModule({
     declarations: [
@@ -25,10 +32,12 @@ import { MdButtonModule, MdIconModule, MdSidenavModule, MdToolbarModule } from "
         MdToolbarModule,
         MdSidenavModule,
         MdButtonModule,
+        NgAwsCognitoModule.forRoot(awsCognitoConfig),
         routing
     ],
     bootstrap: [ AppComponent ]
 })
 export class AppModule {
+
 }
 

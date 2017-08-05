@@ -62,5 +62,19 @@ export class QuestionService {
 
         return questions.sort((a, b) => a.order - b.order);
     }
+    getConfirmUserQuestions() {
+        let questions: QuestionBase<any>[] = [
+            new TextboxQuestion({
+                key: 'confirmation-code',
+                label: 'Confirmation Code',
+                errorLabel: 'Confirmation Code',
+                type: 'text',
+                required: true,
+                order: 1
+            })
+        ];
+
+        return questions.sort((a, b) => a.order - b.order);
+    }
 
 }

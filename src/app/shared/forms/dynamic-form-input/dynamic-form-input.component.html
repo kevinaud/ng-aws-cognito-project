@@ -2,7 +2,7 @@
 
     <div [ngSwitch]="question.controlType">
 
-        <md-input-container *ngSwitchCase="'text'">
+        <md-input-container *ngSwitchCase="'text'" style="width: 100%">
             <input mdInput [formControlName]="question.key"
                    [id]="question.key" [type]="question.type" [placeholder]="question.label">
 
