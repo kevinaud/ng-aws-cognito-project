@@ -23,8 +23,14 @@ md-toolbar {
     margin-left: 16px;
 }
 
+md-progress-bar {
+    position: absolute !important;
+    z-index: 100 !important;
+    top: 64px;
+}
 
 md-sidenav-container {
+    padding-top: 64px !important;
     height: 100%;
 }
 

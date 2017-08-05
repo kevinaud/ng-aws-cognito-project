@@ -23,7 +23,10 @@ const AwsServiceStub = {
             return cb (null, "successfully logged in");
         } else {
             this.loggedIn = false;
-            return cb ("not logged in");
+            let error = {
+                message: "login failed" 
+            };
+            return cb (error);
         }
     },
 
@@ -97,7 +100,7 @@ describe("Service: UserService", () => {
                 expect(success).toBeFalsy();
             },
             (error) => {
-                expect(error).toBeTruthy();
+                expect(error).toBeDefined();
             }
         );
     }));

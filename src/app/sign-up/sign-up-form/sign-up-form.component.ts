@@ -12,6 +12,8 @@ import { QuestionService } from '../../shared/forms/question.service';
 })
 export class SignUpFormComponent implements OnInit {
 
+    title = "Sign Up";
+
     questions;
     waiting = false;
     responseReceived = false;
@@ -35,26 +37,32 @@ export class SignUpFormComponent implements OnInit {
     }
 
     onSubmit(user) {
+        this.waiting = true;
+
         let username = user.username;
 
-        let options = {
-            relativeTo: this.route 
-        };
-
-        this.router.navigate(['./', username, 'confirm'], options); 
-        /*this.userService.signUp(user).subscribe(
+        this.userService.signUp(user).subscribe(
             (username) => {
+
+                this.waiting = false;
 
                 let options = {
                     relativeTo: this.route 
                 };
 
-                this.router.navigate(['./', username, '/confirm'], options); 
+                this.router.navigate(['./', username, 'confirm'], options); 
             },
             (error) => {
-                console.log(error);  
+                this.waiting = false;
+
+                this.response = {
+                    success: false,
+                    message: error
+                };
+
+                this.responseReceived = true;
             }
-        );*/
+        );
     }
 
 }

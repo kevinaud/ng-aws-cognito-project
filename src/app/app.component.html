@@ -14,6 +14,12 @@
 
 </md-toolbar>
 
+<md-progress-bar
+    *ngIf="appWaiting.$waiting | async"
+    mode="indeterminate"
+    color="accent">
+</md-progress-bar>
+
 <md-sidenav-container>
 
     <md-sidenav #sidenav [opened]="sidenavOpen"  mode="slide">

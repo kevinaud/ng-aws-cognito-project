@@ -1,45 +1,23 @@
-<div class="row center-xs">
-    <div class="col-xs-11">
-        <div class="box">
+<app-page-title [title]="title"></app-page-title>
 
-            <h1 class="title text-center">Profile</h1>
+<app-page-body *ngIf="userService.$auth | async">
 
-        </div>
-    </div>
-</div>
+    <md-card>
+        <md-card-content>
 
-<div class="row center-xs">
+            <md-list>
+                <md-list-item 
+                    *ngFor="let attribute of attributes">
+                    
+                    <app-user-attribute
+                        [attribute]="attribute">
+                    </app-user-attribute>
 
-    <div class="col-xs-11" *ngIf="!(userService.$auth | async)">
-        <div class="box">
+                </md-list-item>
+            </md-list>
 
-            <h2 class="text-center">You are not logged in</h2>
+        </md-card-content>
+    </md-card>
 
-        </div>
-    </div>
-
-    <div *ngIf="userService.$auth | async" class="col-xs-11 col-sm-7 col-md-6 col-lg-4">
-        <div class="box">
-
-            <md-card>
-                <md-card-content>
-
-                    <md-list>
-                        <md-list-item 
-                            *ngFor="let attribute of attributes">
-                            
-                            <app-user-attribute
-                                [attribute]="attribute">
-                            </app-user-attribute>
-
-                        </md-list-item>
-                    </md-list>
-
-                </md-card-content>
-            </md-card>
-
-        </div>
-    </div>
-
-</div>
+</app-page-body>
 

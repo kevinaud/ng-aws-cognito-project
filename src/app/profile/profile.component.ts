@@ -9,8 +9,9 @@ import { UserService } from 'ng-aws-cognito';
 })
 export class ProfileComponent implements OnInit {
 
-    user = null;
+    title = "Profile";
 
+    user = null;
     attributes = null;
 
     constructor(private userService: UserService) {

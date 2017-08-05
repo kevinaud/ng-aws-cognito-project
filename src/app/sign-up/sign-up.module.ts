@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { MdSnackBarModule } from '@angular/material';
 
 import { NgAwsCognitoModule } from 'ng-aws-cognito';
 
@@ -12,6 +13,7 @@ import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
 
 @NgModule({
     imports: [
+        MdSnackBarModule,
         SharedModule,
         SignUpRoutingModule
     ],

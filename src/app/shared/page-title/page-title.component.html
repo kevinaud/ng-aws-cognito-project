@@ -1,0 +1,19 @@
+<div class="row center-xs app-page-title">
+    <div class="col-xs-11">
+
+        <!-- header WITHOUT sub title -->
+        <div class="box" *ngIf="!subTitle">
+
+            <h1 class="mat-display-2 primary-text">{{ title }}</h1>
+
+        </div>
+
+        <!-- header WITH sub title -->
+        <div class="box subtitle-header" *ngIf="subTitle">
+
+            <h1 class="mat-display-2 primary-text">{{ title }}</h1>
+            <h2 class="mat-subheading-1 secondary-text">{{ subTitle }}</h2>
+
+        </div>
+    </div>
+</div>

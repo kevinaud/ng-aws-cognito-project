@@ -4,12 +4,19 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import {
+    MdButtonModule,
+    MdIconModule,
+    MdSidenavModule,
+    MdToolbarModule,
+    MdProgressBarModule
+} from "@angular/material";
+
 import { NgAwsCognitoModule } from 'ng-aws-cognito';
 
 import { CoreModule } from './core/core.module';
 import { routing } from './app.routing';
 import { AppComponent } from './app.component';
-import { MdButtonModule, MdIconModule, MdSidenavModule, MdToolbarModule } from "@angular/material";
 
 const awsCognitoConfig = {
     region: 'us-east-1',
@@ -31,6 +38,7 @@ const awsCognitoConfig = {
         MdIconModule,
         MdToolbarModule,
         MdSidenavModule,
+        MdProgressBarModule,
         MdButtonModule,
         NgAwsCognitoModule.forRoot(awsCognitoConfig),
         routing

@@ -39,7 +39,7 @@ export class QuestionService {
                 label: 'Email Address*',
                 errorLabel: 'Email Address',
                 type: 'email',
-                required: false,
+                required: true,
                 order: 1
             }),
             new TextboxQuestion({
@@ -47,14 +47,14 @@ export class QuestionService {
                 label: 'Username*',
                 errorLabel: 'Username',
                 type: 'text',
-                required: false,
+                required: true,
                 order: 1
             }),
             new TextboxQuestion({
                 key: 'password',
                 label: 'Password*',
                 errorLabel: 'Password',
-                required: false,
+                required: true,
                 type: 'password',
                 order: 2
             })
